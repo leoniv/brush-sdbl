@@ -36,57 +36,42 @@ describe('brush-sdbl', function() {
     it('string parse', function() {
       var strs = matches.filter(function(m) {return m.css == 'string'})
         .map(function(m) {return m.value}).join("\n")
-      expect(strs).to.equal('FIXME')
+      expect(strs).to.equal('"Строка "\n"в кавычках"\n""\n"Многострочная строка "\n"строка\n    в экранированных\n    кавычках"\n""')
     })
 
     it('comments parse',function() {
       var comments = matches.filter(function(m) {return m.css == 'comments'})
         .map(function(m){return m.value})
 
-      expect(comments).to.equal('FIXME')
-      })
+      expect(comments.join(' ')).to.equal('// SYNTAX TEST "source.sdbl"')
     })
 
     it('value parse', function() {
-      var values = matches.filter(function(m) {return m.css == 'value'})
-        .map(function(m){return m.value}).join("\n")
+      var values_ = matches.filter(function(m) {return m.css == 'value'})
+        .map(function(m){return m.value}).join(' ').replace(/\s+/g, ' ').trim()
 
-      expect(values.join(' ')).to.equal('FIXME')
+      expect(values_).to.equal('10 2 -100.10 0 0 0')
     })
 
     it('parameter parse',function() {
-      var parameters = matches.filter(function(m) {return m.css == 'color3'})
-        .map(function(m){return m.value})
+      var parameters = matches.filter(function(m) {return m.css == 'constants'})
+        .map(function(m){return m.value}).join(' ').replace(/\s+/g, ' ').trim()
 
-      expect(parameters.join(' ')).to.equal('FIXME')
-
-      preprocessor.forEach(function(com) {
-        expect(com).to.match(/^\s*(&)/)
-      })
+      expect(parameters).to.equal('&Параметр &а, &a,')
     })
 
     it ('keyword parse', function() {
       var keywords = matches.filter(function(m) {return m.css == 'keyword bold'})
-        .map(function(m){return m.value})
-      expect(keywords.join(" ")).to.equal('FIXME')
+        .map(function(m){return m.value}).join(' ').replace(/\s+/g, ' ').trim()
+      expect(keywords)
+        .to.equal('ВЫБРАТЬ ПЕРВЫЕ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ как КАК как ВЫБОР КОГДА ТОГДА ИНАЧЕ КОНЕЦ ИЗ ЛЕВОЕ СОЕДИНЕНИЕ ПО ГДЕ И Между И BY')
     })
 
     it ('values parse', function() {
       var values = matches.filter(function(m) {return m.css == 'value bold'})
-        .map(function(m){return m.value})
-      expect(values.join(" ")).to.equal('FIXME')
-    })
-
-    it ('operators parse', function() {
-      var operators = matches.filter(function(m) {return m.css == 'color1 bold'})
-        .map(function(m){return m.value})
-      expect(operators.join(" ")).to.equal('FIXME')
-    })
-
-    it ('functions parse', function() {
-      var functions = matches.filter(function(m) {return m.css == 'color0 bold'})
-        .map(function(m){return m.value})
-      expect(functions.join(" ")).to.equal('FIXME')
+        .map(function(m){return m.value}).join(' ').replace(/\s+/g, ' ').trim()
+      expect(values)
+        .to.equal('Неопределено NULL Истина NULL,')
     })
   });
 });
