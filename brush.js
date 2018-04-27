@@ -2,23 +2,53 @@ var BrushBase = require('brush-base');
 var regexLib = require('syntaxhighlighter-regex').commonRegExp;
 
 function Brush() {
- var keywords = 'КонецПроцедуры EndProcedure КонецФункции EndFunction'+
-                ' Прервать Break Продолжить Continue' +
-                ' Возврат Return Если If' +
-                ' Иначе Else ИначеЕсли ElsIf' +
-                ' Тогда Then КонецЕсли EndIf' +
-                ' Попытка Try Исключение Except' +
-                ' КонецПопытки EndTry Raise ВызватьИсключение' +
-                ' Пока While Для For' +
-                ' Каждого Each Из In' +
-                ' По To Цикл Do' +
-                ' КонецЦикла EndDo НЕ NOT' +
-                ' И AND ИЛИ OR' +
-                ' Новый New Процедура Procedure' +
-                ' Функция Function Перем Var' +
-                ' Экспорт Export Знач Val'
+  var keywords = 'Выбрать Разрешенные Различные Select Allowed Distinct'
+    + ' Первые Как ПустаяТаблица Top As EpmtyTable'
+    + ' Поместить Уничтожить Из Into Drop From'
+    + ' Объединить Все Union All Где Имеющие Where Having'
+    + ' Автоупорядочивание Итоги Autoorder Totals'
+    + ' Сгруппировать Group Упорядочить Order Общие Overall'
+    + ' Только Only Иерархия Hierarchy'
+    + ' Периодами Индексировать Выразить Возр Убыв Спецсимвол'
+    + ' Periods Index Cast Asc Desc Escape'
+    + ' Для Изменения For Update Of По By'
 
-  var builds = 'Неопределено Undefined Истина True Ложь False NULL'
+  var values = 'Неопределено Undefined Истина True Ложь False NULL'
+
+  var operators = 'Выбор Когда Тогда Иначе Конец Case When Then Else'
+    + ' End НЕ И ИЛИ В Между Подобно Левое Left Правое Right'
+    + ' Полное Full Внешнее Outer Соединение Join Внутреннее Inner'
+    + ' NOT AND OR In Between Like'
+
+  var types = 'Число Number Строка String Дата Date'
+
+  var functions = ' Значение Value'
+    + ' ДатаВремя DateTime'
+    + ' Тип Type'
+    + ' Подстрока Substring'
+    + ' Год Year'
+    + ' Квартал Quarter'
+    + ' Месяц Month'
+    + ' ДеньГода DayOfYear'
+    + ' День Day'
+    + ' Неделя Week'
+    + ' ДеньНедели Weekday'
+    + ' Час Hour'
+    + ' Минута Minute'
+    + ' Секунда Second'
+    + ' НачалоПериода BeginOfPeriod'
+    + ' КонецПериода EndOfPeriod'
+    + ' ДобавитьКДате DateAdd'
+    + ' РазностьДат DateDiff'
+    + ' Сумма Sum'
+    + ' Среднее Avg'
+    + ' Минимум Min'
+    + ' Максимум Max'
+    + ' Количество Count'
+    + ' ЕстьNULL IsNULL'
+    + ' Представление Presentation'
+    + ' ПредставлениеСсылки RefPresentation'
+    + ' ТипЗначения ValueType'
 
   // \b - word boundary doesn't work with utf-8
   this.getKeywordsUTF8 = function(str){
@@ -40,12 +70,8 @@ function Brush() {
       css: 'string'
     },
     {
-      regex: /^\s*(#|&).+/gm,
-      css: 'preprocessor'
-    },
-    {
-      regex: /'.+'/g,
-      css: 'value'
+      regex: /&\S+/g,
+      css: 'color3'
     },
     {
       regex: /-?\b[\d\.]+\b/g,
@@ -54,10 +80,18 @@ function Brush() {
     {
       regex: new RegExp(this.getKeywordsUTF8(keywords), 'gmi'),
       css: 'keyword bold'
-    },
-    {
-      regex: new RegExp(this.getKeywordsUTF8(builds), 'gmi'),
-      css: 'value bold'
+    }
+    ,{
+      regex: new RegExp(this.getKeywordsUTF8(values), 'gmi'),
+      css: 'values bold'
+    }
+    ,{
+      regex: new RegExp(this.getKeywordsUTF8(operators), 'gmi'),
+      css: 'color1 bold'
+    }
+    ,{
+      regex: new RegExp(this.getKeywordsUTF8(functions), 'gmi'),
+      css: 'color2 bold'
     }
     ];
 };

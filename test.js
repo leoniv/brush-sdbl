@@ -36,51 +36,14 @@ describe('brush-sdbl', function() {
     it('string parse', function() {
       var strs = matches.filter(function(m) {return m.css == 'string'})
         .map(function(m) {return m.value}).join("\n")
-      expect(strs).to.equal('"текст с экраннированной "\n'
-            +'" кавычкой"\n'
-            +'"и конкатенаций"\n'
-            +'""\n'
-            +'"многострочная\n'
-            +'      |строка\n'
-            +'      |// а это нет\n'
-            +'      |"\n'
-            +'""\n'
-            +'"ВЫБРАТЬ\n'
-            +'    |  Таблица.Поле КАК Поле,\n'
-            +'    |  МАКСИМУМ(Таблица.Поле2) КАК Поле2\n'
-            +'    |ИЗ\n'
-            +'    |  Таблица КАК Таблица\n'
-            +'    |ГДЕ\n'
-            +'    |  Таблица.Поле = 0\n'
-            +'    |  И Таблица.Поле <> "\n'
-            +'"Строка"\n'
-            +'"\n'
-            +'    |  И ВЫРАЗИТЬ(Таблица.Поле КАК СТРОКА) <> "\n'
-            +'""\n'
-            +'"\n'
-            +'    |  И Таблица.Поле <> "\n'
-            +'"Строка с экраннированной "\n'
-            +'""\n'
-            +'" кавычкой"\n'
-            +'"\n'
-            +'    |// Закомметированная строка внутри запроса с кавычками "\n'
-            +'"ТЕКСТ"\n'
-            +'"\n'
-            +'    |СГРУППИРОВАТЬ ПО\n'
-            +'    |  Поле\n'
-            +'    |//АВТОУПОРЯДОЧИВАНИЕ"\n'
-            +'"Some selected text"\n'
-            +'"Литерал типа Дата: \'00010101\'"\n'
-            +'"ТаблицаЗначений"\n'
-            +'""')
+      expect(strs).to.equal('FIXME')
     })
 
     it('comments parse',function() {
       var comments = matches.filter(function(m) {return m.css == 'comments'})
         .map(function(m){return m.value})
 
-      comments.forEach(function(com) {
-        expect(com).to.match(/^\s*\/\//)
+      expect(comments).to.equal('FIXME')
       })
     })
 
@@ -88,53 +51,42 @@ describe('brush-sdbl', function() {
       var values = matches.filter(function(m) {return m.css == 'value'})
         .map(function(m){return m.value}).join("\n")
 
-      expect(values).to.equal([ '0',
-        '0.0',
-        '100',
-        '-100',
-        '\'00010101000000\'',
-        '\'00010101\'',
-        '\'0001-01-01T00:00:00\'',
-        '\'0001/01/01\'',
-        '0',
-        '0',
-        '0',
-        '0',
-        '0' ].join("\n"))
+      expect(values.join(' ')).to.equal('FIXME')
     })
 
-    it('preprocessor parse',function() {
-      var preprocessor = matches.filter(function(m) {return m.css == 'preprocessor'})
+    it('parameter parse',function() {
+      var parameters = matches.filter(function(m) {return m.css == 'color3'})
         .map(function(m){return m.value})
 
+      expect(parameters.join(' ')).to.equal('FIXME')
+
       preprocessor.forEach(function(com) {
-        expect(com).to.match(/^\s*(#|&)/)
+        expect(com).to.match(/^\s*(&)/)
       })
     })
 
     it ('keyword parse', function() {
       var keywords = matches.filter(function(m) {return m.css == 'keyword bold'})
         .map(function(m){return m.value})
-      expect(keywords.join(" ")).to.equal(
-        ['\nПерем ', ' Экспорт;', '\nПерем ', '\nПерем ', ' Экспорт,', '\nПерем ',
-          ' Экспорт;', '\nПерем ', ' Экспорт,', ' Экспорт;', '\nПроцедура ',
-          ' Знач ', ' Экспорт\n', 'и ', 'и ', 'и ', ' Если ', ' И ', 'НЕ ',
-          ' Тогда\n', ' Иначе\n', ' КонецЕсли;', ' Пока ', ' Цикл\n', ' Прервать;',
-          ' КонецЦикла;', ' Новый ', 'Новый;', ' Если ', ' Тогда\n', ' ИначеЕсли ',
-          ' Тогда\n', ' КонецЕсли;', ' Если ', ' И\n', ' Тогда\n', ' КонецЕсли;',
-          '\nКонецПроцедуры\n', '\nПроцедура ', ' Возврат;', '\nКонецПроцедуры\n',
-          '\nПроцедура ', '\nКонецПроцедуры\n', '\nProcedure ', '\nEndProcedure\n'].join(" "))
+      expect(keywords.join(" ")).to.equal('FIXME')
     })
 
-    it ('build parse', function() {
-      var builds = matches.filter(function(m) {return m.css == 'value bold'})
+    it ('values parse', function() {
+      var values = matches.filter(function(m) {return m.css == 'value bold'})
         .map(function(m){return m.value})
-      expect(builds.join(" ")).to.equal(
-        [ ' Истина;', ' Ложь;', ' Неопределено\n', ' Undefined\n', ' Истина\n',
-          ' True\n', ' Ложь\n', ' False\n', ' NULL\n', '=Неопределено\n',
-          '=Undefined\n', '=Истина\n', '=True\n', '=Ложь\n', '=False\n',
-          '=NULL\n', '\nНеопределено\n', 'Undefined\n', 'Истина\n', 'True\n',
-          'Ложь\n', 'False\n', 'NULL\n' ].join(" "))
+      expect(values.join(" ")).to.equal('FIXME')
+    })
+
+    it ('operators parse', function() {
+      var operators = matches.filter(function(m) {return m.css == 'color1 bold'})
+        .map(function(m){return m.value})
+      expect(operators.join(" ")).to.equal('FIXME')
+    })
+
+    it ('functions parse', function() {
+      var functions = matches.filter(function(m) {return m.css == 'color0 bold'})
+        .map(function(m){return m.value})
+      expect(functions.join(" ")).to.equal('FIXME')
     })
   });
 });
